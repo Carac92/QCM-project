@@ -30,9 +30,7 @@ public class QCM_Final{
        }
      }while(ChoixMenu!=4);
    }
-   /**
-    * Méthode d'affichage du menu principal
-    */
+   
    public static int Menu(String Questions[]){
      int ChoixMenu;
      do{
@@ -53,9 +51,7 @@ public class QCM_Final{
      }while((ChoixMenu==2&&Questions[1]==null)||(ChoixMenu==3&&Questions[1]==null));
      return ChoixMenu;
    }
-   /**
-    * Méthode de création des questions.
-    */
+
    public static void creationQuestions (String Questions [], String ReponseChoix[][], int ReponseBonne[][]){
      for (int i=1; i<Questions.length; i++){
        System.out.println("Ecrivez la question " + i + " ci dessous (Appuyez sur entrée si plus de questions)");
@@ -66,9 +62,7 @@ public class QCM_Final{
        creationReponses(ReponseChoix[i], ReponseBonne[i]);
      }
    }
-   /**
-    * Méthode de création des réponses possibles
-    */
+
    public static void creationReponses(String ReponseChoix[], int ReponseBonne[]){
      int nbreReponse=0;
      for (int j=1; j<ReponseChoix.length; j++) {
@@ -81,9 +75,7 @@ public class QCM_Final{
      }
      creationReponsesBonnes(ReponseBonne, nbreReponse);
    }
-   /**
-    * Méthode de création des réponses bonnes dans son tableau.
-    */
+
    public static void creationReponsesBonnes(int ReponseBonne [], int nbreReponse){
      for (int k=1; k<=ReponseBonne.length; k++){
        System.out.println("Quelle est la ou les bonnes réponses à la question ?");
@@ -93,9 +85,7 @@ public class QCM_Final{
        }
      }
    }
-   /**
-    * Méthode d'affichage du menu de sélection entre ajouter ou modifier.
-    */
+
    public static void menuModifAjout(String Questions[], String ReponseChoix[][], int ReponseBonne[][]){ 
      int choix;
      do{
@@ -112,9 +102,7 @@ public class QCM_Final{
        }
      }while (choix!=3);
    }
-   /**
-    * Méthode d'affichage et sélection du sous-menu modification.
-    */
+   
    public static void sousmenuModifications(String Questions[], String ReponseChoix[][], int ReponseBonne[][]){
      int choix;
      do{
@@ -137,9 +125,7 @@ public class QCM_Final{
        }
      }while (choix!=4);
    }
-   /**
-    * Méthode d'affichage du sous-menu ajout.
-    */
+
    public static void sousMenuAjout(String Questions[], String ReponseChoix[][], int ReponseBonne[][]){
      int choix;
      do{
@@ -157,13 +143,12 @@ public class QCM_Final{
          ajoutReponses(ReponseChoix[numQuestion],ReponseBonne[numQuestion]);
        }
        else if (choix==3){
-         //méthode ajout réponses bonnes
+         int numQuestion=affichageEtChoixQuestions(Questions);
+         ajoutReponseBonne(ReponseChoix[numQuestion], ReponseBonne[numQuestion]);
        }
      }while (choix!=4);
    }
-   /**
-    * Méthode qui permet de modifier une question et peut-être les réponses si l'utilisateur le souhaite.
-    */
+
    public static void modificationQuestions(String Questions[], String ReponseChoix[][], int ReponseBonne[][]){
      int numQuestion, nbreQuestions;
      char repModifQuest='O', repModifRep;
@@ -178,16 +163,13 @@ public class QCM_Final{
        repModifQuest=OuiNon("Souhaitez vous modifier une autre question?");
      }while(repModifQuest!='N');
    }
-   /**
-    * Méthode qui permet de modifier les réponses possibles 
-    * et de modifier les réponses bonnes si l'utilisateur le souhaite.
-    */
+
    public static void modificationReponse(String ReponseChoix[], int ReponseBonne[]){
      int numReponse, nbreReponse=0;
      char repModif='O', repModifRepBonne;
      do{
        for (int i=1; i<ReponseChoix.length; i++){
-         if((ReponseChoix[i].isEmpty())||(ReponseChoix[i]==null)){
+         if(ReponseChoix[i]==null||ReponseChoix[i].isEmpty()){
            break;
          }
          nbreReponse=i;
@@ -203,15 +185,13 @@ public class QCM_Final{
        repModif=OuiNon("Souhaitre vous modifier une autre réponse?");
      } while (repModif!='N');
    }
-   /**
-    * Méthode qui permet de modifier les réponses bonnes.
-    */
+
    public static void modificationReponseBonne(String ReponseChoix[], int ReponseBonne[]){
      char repModif='O';
      int numReponseBonne, nbreReponseBonne=0,nbreReponse=0;
      do{
        for (int i=1; i<ReponseChoix.length; i++){
-         if((ReponseChoix[i].isEmpty())||(ReponseChoix[i]==null)){
+         if(ReponseChoix[i]==null||ReponseChoix[i].isEmpty()){
            break;
          }
          nbreReponse=i;
@@ -229,15 +209,13 @@ public class QCM_Final{
        repModif=OuiNon("Souhaitez vous modifier une autre bonne réponse?");
      }while(repModif!='N');
    }
-   /**
-    * Méthode qui permet d'ajouter une question
-    */
+
    public static void ajoutQuestion(String Questions[],String ReponseChoix[][], int ReponseBonne[][]){
      int nbreQuestions=0; 
      char repAjout='O';
      do{
         for (int i=1; i<Questions.length; i++){
-         if((Questions[i].isEmpty())||(Questions[i]==null)){
+         if(Questions[i]==null||Questions[i].isEmpty()){
            break;
          }
          nbreQuestions=i;
@@ -250,21 +228,21 @@ public class QCM_Final{
        repAjout=OuiNon("Souhaitez vous ajouter une autre question?");
      }while (repAjout!='N');
    }
-   /**
-    * Méthode qui permet d'ajouter une réponse
-    */
+ 
    public static void ajoutReponses(String ReponseChoix [],int ReponseBonne []){
      char repAjout='O', repBonneRep;
      int nbreReponseBonne=0, nbreReponse=0;
      do{
-       for (int i=1; ReponseChoix[i].isEmpty(); i++){
+       for (int i=1; i<ReponseChoix.length; i++){
+         if(ReponseChoix[i]==null||ReponseChoix[i].isEmpty()){
+           break;
+         }
          nbreReponse=i;
          System.out.println(i + "- " + ReponseChoix[i]);
        }
        nbreReponse+=1;
        System.out.println("Ecrivez la réponse");
        ReponseChoix[nbreReponse]=Terminal.lireString();
-       repAjout=OuiNon("Souhaitez vous ajouter une réponse?");
        repBonneRep=OuiNon("Souhaitez vous ajouter cette réponse dans les bonnes réponses?");
        if(repBonneRep=='O'){
          for (int i=1; ReponseBonne[i]==0; i++){
@@ -273,43 +251,45 @@ public class QCM_Final{
          nbreReponseBonne+=1;
          ReponseBonne[nbreReponseBonne]=nbreReponse;
        }
+       repAjout=OuiNon("Souhaitez vous ajouter une réponse?");
      }while(repAjout!='N');
    }
-   /**
-    * Méthode qui permet d'ajouter une bonne réponse.
-    */
+ 
    public static void ajoutReponseBonne(String ReponseChoix[],int ReponseBonne[]){
      int nbreReponse=0, nbreReponseBonne=0;
      char repAjout='O';
        do{
-         for (int i=1; ReponseChoix[i].isEmpty(); i++){
+         for (int i=1; i<ReponseChoix.length; i++){
+           if(ReponseChoix[i]==null||ReponseChoix[i].isEmpty()){
+             break;
+           }
            nbreReponse=i;
            System.out.println(i + "- " + ReponseChoix[i]);
          }
          System.out.println("La/les réponses bonnes:");
-         for (int i=1; ReponseBonne[i]==0; i++){
+         for (int i=1; i<ReponseBonne.length; i++){
+           if(ReponseBonne[i]==0){
+             break;
+           }
            nbreReponseBonne=i;
            System.out.println("- " + ReponseBonne[i]);
          }
          nbreReponseBonne+=1;
          System.out.println("Ecrivez la réponse");
          ReponseBonne[nbreReponseBonne]=lireEntier("Ecrivez la bonne réponse",1,nbreReponse);
-         
          repAjout=OuiNon("Souhaitez vous ajouter une réponse bonne?");
        }while(repAjout!='N');
      }
-   /**
-    * Méthode qui permet de faire passer le test à l'évalué.
-    */
+
    public static void Test (String Questions[], String ReponseChoix[][], int ReponseTest[][]){
      int NbreReponse=0;
      for(int i=1; i<Questions.length; i++){
-       if(Questions[i].isEmpty()){
+       if(Questions[i]==null||Questions[i].isEmpty()){
          break;
        }
        System.out.println("__ " + Questions[i]);
        for(int j=1; j<ReponseChoix[i].length; j++){
-         if (ReponseChoix[i][j].isEmpty()){
+         if (ReponseChoix[i]==null||ReponseChoix[i][j].isEmpty()){
            break;
            }
          System.out.println(j + "- " + ReponseChoix[i][j]);
@@ -331,7 +311,7 @@ public class QCM_Final{
      int TotalReponse=0;
      double Points;
      for(int i=1; i<ReponseBonne.length; i++){
-       if(Questions[i].isEmpty()){
+       if(Questions[i]==null||Questions[i].isEmpty()){
          break;
        }
        for(int j=1; j<ReponseBonne[i].length; j++){
@@ -373,7 +353,7 @@ public class QCM_Final{
      int Comparaison=0;
      int ExtractionRB,ExtractionRT;
      for (int i=1; i<Questions.length; i++){
-       if (Questions[i].isEmpty()){
+       if (Questions[i]==null||Questions[i].isEmpty()){
          break;
        }
        for (int j=1; j<ReponseBonne[i].length; j++){
@@ -400,7 +380,7 @@ public class QCM_Final{
    public static int affichageEtChoixQuestions(String Questions[]){
      int numQuestion, nbreQuestions=0;
      for (int i=1; i<Questions.length; i++){
-         if((Questions[i].isEmpty())||(Questions[i]==null)){
+         if(Questions[i]==null||Questions[i].isEmpty()){
            break;
          }
          nbreQuestions=i;
@@ -442,8 +422,7 @@ public class QCM_Final{
      return entier;
    }
 /**
- * méthode qui permet de lire uniquement si une personne mets Y, 
- * toute autre réponses entrainera une repose de la question
+ * méthode qui permet de lire uniquement si une personne mets O ou N, 
  */
    public static char OuiNon (String msg){
      char rep;
