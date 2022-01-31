@@ -150,7 +150,7 @@ public class QCM_Final{
    }
 
    public static void modificationQuestions(String Questions[], String ReponseChoix[][], int ReponseBonne[][]){
-     int numQuestion, nbreQuestions;
+     int numQuestion;
      char repModifQuest='O', repModifRep;
      do{
        numQuestion=affichageEtChoixQuestions(Questions);
